@@ -60,15 +60,15 @@ function Fund() {
           ]}
           data={[
             {
-              asset: "Doge Coin",
+              asset: "Bitcoin",
               allocation: 60.4,
             },
             {
-              asset: "Ripple",
+              asset: "Ethereum",
               allocation: 19.6,
             },
             {
-              asset: "Ethereum Classic",
+              asset: "Cake",
               allocation: 10.0,
             },
           ]}

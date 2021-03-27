@@ -32,19 +32,30 @@ const Modal = styled.div`
   margin-top: 20px;
 `;
 
-function TradeModal({ onClose, giveValue, setGiveValue }) {
+function TradeModal({
+  onClose,
+  title,
+  giveAsset,
+  giveValue,
+  setGiveValue,
+  takeAsset,
+}) {
   return (
     <Layer onEsc={onClose} onClickOutside={onClose}>
       <Modal>
         <Heading level={3} textAlign="center">
-          Buy Fund
+          {title || "Buy Fund"}
         </Heading>
         <Form
           value={giveValue}
           onChange={(nextValue) => setGiveValue(nextValue)}
           onSubmit={({ value }) => {}}
         >
-          <FormField name="name" htmlFor="text-input-id" label="BUSD Amount">
+          <FormField
+            name="name"
+            htmlFor="text-input-id"
+            label={giveAsset || "BUSD Amount"}
+          >
             <TextInput id="text-input-id" name="giveAmount" textAlign="end" />
           </FormField>
           <Row>
@@ -55,7 +66,7 @@ function TradeModal({ onClose, giveValue, setGiveValue }) {
           <FormField
             name="name"
             htmlFor="text-input-id"
-            label="Growth Fund Token"
+            label={takeAsset || "Growth Fund Token"}
           >
             <TextInput
               id="text-input-id"
