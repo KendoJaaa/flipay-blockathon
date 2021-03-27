@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Heading, DataTable, Layer, Text, Button } from "grommet";
+import { Heading, DataTable, Layer, Text, Button, Box } from "grommet";
 import TradeModal from "./TradeModal";
 
 const Row = styled.div`
@@ -60,7 +60,34 @@ function FundManagement() {
           onEsc={() => setShow2(false)}
           onClickOutside={() => setShow2(false)}
         >
-          <Button label="close" onClick={() => setShow2(false)} />
+          <DataTable
+            columns={[
+              {
+                property: "name",
+                header: <Text>Name</Text>,
+                primary: true,
+              },
+              {
+                property: "apy",
+                header: <Text>APY</Text>,
+                render: (datum) => <Text>{datum.apy}%</Text>,
+              },
+              {
+                property: "percent",
+                header: "Complete",
+                render: (datum) => (
+                  <Box pad={{ vertical: "xsmall" }}>
+                    <Button primary>Farm</Button>
+                  </Box>
+                ),
+              },
+            ]}
+            data={[
+              { name: "PancakeSwap", apy: 100, percent: 20 },
+              { name: "Venus", apy: 80, percent: 30 },
+              { name: "Autofarm", apy: 60, percent: 40 },
+            ]}
+          />
         </Layer>
       )}
     </div>
