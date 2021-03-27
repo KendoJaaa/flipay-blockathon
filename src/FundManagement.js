@@ -34,7 +34,7 @@ function FundManagement() {
         margin: "50px",
       }}
     >
-      <Heading>Asset Management</Heading>
+      <Heading>Growth Fund</Heading>
       <DataTable
         columns={[
           {
