@@ -1,8 +1,15 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { Heading, Button, DataTable, Text } from "grommet";
-
+import Bitcoin from "./img/Bitcoin.png";
+import Ethereum from "./img/Ethereum.png";
+import Cake from "./img/Cake.png";
 import TradeModal from "./TradeModal";
+const kak = {
+  Bitcoin: Bitcoin,
+  Ethereum: Ethereum,
+  Cake: Cake,
+};
 
 const Page = styled.div`
   display: flex;
@@ -48,7 +55,19 @@ function Fund() {
             {
               property: "asset",
               header: <Text>Asset</Text>,
-              primary: true,
+              render: (data) => {
+                return (
+                  <div style={{ display: "flex", alignItems: "Cente" }}>
+                    {data.asset}
+                    <img
+                      style={{ marginLeft: "5px" }}
+                      src={kak[data.asset]}
+                      width={20}
+                      height={20}
+                    />
+                  </div>
+                );
+              },
             },
             {
               property: "allocation",
@@ -61,6 +80,7 @@ function Fund() {
           data={[
             {
               asset: "Bitcoin",
+
               allocation: 60.4,
             },
             {
