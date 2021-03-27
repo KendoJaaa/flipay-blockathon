@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Heading, DataTable, Box, Meter, Text, Button } from "grommet";
+import { Heading, DataTable, Layer, Text, Button } from "grommet";
 import TradeModal from "./TradeModal";
 
 const Row = styled.div`
@@ -8,8 +8,11 @@ const Row = styled.div`
   justify-content: space-between;
 `;
 
+function FarmModal() {}
+
 function FundManagement() {
   const [show, setShow] = useState(false);
+  const [show2, setShow2] = useState(false);
   const [giveValue, setGiveValue] = useState("");
   return (
     <div>
@@ -29,7 +32,9 @@ function FundManagement() {
                 <Button primary onClick={() => setShow(true)}>
                   Swap
                 </Button>
-                <Button primary>Farm</Button>
+                <Button primary onClick={() => setShow2(true)}>
+                  Farm
+                </Button>
               </Row>
             ),
           },
@@ -49,6 +54,14 @@ function FundManagement() {
           giveValue={giveValue}
           setGiveValue={setGiveValue}
         />
+      )}
+      {show2 && (
+        <Layer
+          onEsc={() => setShow2(false)}
+          onClickOutside={() => setShow2(false)}
+        >
+          <Button label="close" onClick={() => setShow2(false)} />
+        </Layer>
       )}
     </div>
   );
