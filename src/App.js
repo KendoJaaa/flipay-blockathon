@@ -22,13 +22,13 @@ const AppBar = (props) => (
 
 function App() {
   return (
-    <div>
+    <Grommet plain>
       <AppBar>Pika Finance</AppBar>
       <Router>
         <Explorer path="/" />
         <Fund path="fund" />
       </Router>
-    </div>
+    </Grommet>
   );
 }
 
