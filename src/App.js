@@ -7,6 +7,10 @@ import Badge from "./Badge";
 import Explorer from "./Explorer";
 import Fund from "./Fund";
 import FundManager from "./FundManagement";
+import WalletConnect from './walletConnect'
+
+import { Web3ReactProvider } from '@web3-react/core'
+import { Web3Provider } from '@ethersproject/providers'
 
 const AppBar = (props) => (
   <Box
@@ -36,19 +40,29 @@ function App() {
 
   return (
     <Grommet plain>
-      <AppBar>
-        Pika Finance
-        <Button secondary onClick={onClickChangeRole}>
-          <a href="fund-manager">Fund Manager</a>
-        </Button>
-      </AppBar>
-      <Router>
-        <Explorer path="/" />
-        <Fund path="fund" />
-        <FundManager path="fund-manager" />
-      </Router>
+      <Web3ReactProvider getLibrary={getLibrary}>
+        <AppBar>
+          Pika Finance
+          <p>
+            <Button secondary onClick={onClickChangeRole}>
+              <a href="fund-manager">Fund Manager</a>
+            </Button> | <WalletConnect />
+          </p>
+        </AppBar>
+        <Router>
+          <Explorer path="/" />
+          <Fund path="fund" />
+          <FundManager path="fund-manager" />
+        </Router>
+      </Web3ReactProvider>
     </Grommet>
   );
+}
+
+function getLibrary(provider) {
+  const library = new Web3Provider(provider)
+  library.pollingInterval = 12000
+  return library
 }
 
 export default App;
