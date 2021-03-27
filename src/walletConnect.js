@@ -4,6 +4,7 @@ import { InjectedConnector } from '@web3-react/injected-connector'
 const injectedConnector = new InjectedConnector({
   supportedChainIds: [
     97, // BSC Testnet
+    1337, // BSC Local
   ],
 })
 
