@@ -80,7 +80,7 @@ function Explorer() {
         data={[
           {
             name: "Growth Fund",
-            price: "$10.5",
+            price: "$108.81",
             marketCap: "$200,000",
             dayChange: 6,
             weekChange: 24,

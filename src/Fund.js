@@ -42,7 +42,7 @@ function Fund() {
     <Page>
       <Body>
         <Header>
-          <Heading>Growth Fund</Heading>
+          <Heading level={2}>Growth Fund</Heading>
           <div>
             <StyledButton
               primary
@@ -53,6 +53,10 @@ function Fund() {
             <StyledButton primary label="Sell" style={{ width: "150px" }} />
           </div>
         </Header>
+        Current Price
+        <Heading style={{ marginTop: "10px", marginBottom: "10px" }}>
+          $108.81
+        </Heading>
         <Image src={graph} width={1000} style={{ marginTop: "20px" }} />
         <Heading level={2}>Fund Description</Heading>
         High Growth cryptocurrencies with good fundamental selected from Top 100
