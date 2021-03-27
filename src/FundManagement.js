@@ -2,6 +2,14 @@ import { useState } from "react";
 import styled from "styled-components";
 import { Heading, DataTable, Layer, Text, Button, Box } from "grommet";
 import TradeModal from "./TradeModal";
+import Bitcoin from "./img/Bitcoin.png";
+import Ethereum from "./img/Ethereum.png";
+import Cake from "./img/Cake.png";
+const kak = {
+  Bitcoin: Bitcoin,
+  Ethereum: Ethereum,
+  Cake: Cake,
+};
 
 const Row = styled.div`
   display: flex;
@@ -15,34 +23,68 @@ function FundManagement() {
   const [show2, setShow2] = useState(false);
   const [giveValue, setGiveValue] = useState("");
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+        margin: "50px",
+      }}
+    >
       <Heading>Asset Management</Heading>
       <DataTable
         columns={[
           {
             property: "name",
             header: <Text>Asset</Text>,
-            primary: true,
+            render: (data) => {
+              return (
+                <div style={{ display: "flex", alignItems: "Cente" }}>
+                  {data.name}
+                  <img
+                    style={{ marginLeft: "5px" }}
+                    src={kak[data.name]}
+                    width={20}
+                    height={20}
+                  />
+                </div>
+              );
+            },
+          },
+          {
+            property: "amount",
+            header: "Amount",
+            render: (datum) => <div>{datum.amount}</div>,
           },
           {
             property: "percent",
-            header: "Complete",
+            header: "Percent",
+            render: (datum) => <div>{datum.percent} %</div>,
+          },
+          {
+            property: "swap",
+            header: "Swap",
             render: (datum) => (
-              <Row>
-                <Button primary onClick={() => setShow(true)}>
-                  Swap
-                </Button>
-                <Button primary onClick={() => setShow2(true)}>
-                  Farm
-                </Button>
-              </Row>
+              <Button primary onClick={() => setShow(true)}>
+                Swap
+              </Button>
+            ),
+          },
+          {
+            property: "farm",
+            header: "Farm",
+            render: (datum) => (
+              <Button primary onClick={() => setShow2(true)}>
+                Farm
+              </Button>
             ),
           },
         ]}
         data={[
-          { name: "Bitcoin", percent: 20 },
-          { name: "Ethereum", percent: 30 },
-          { name: "Cake", percent: 40 },
+          { name: "Bitcoin", amount: "10.2342 BTC", percent: 50 },
+          { name: "Ethereum", amount: "200.33 ETC", percent: 30 },
+          { name: "Cake", amount: "2000.1 CAKE", percent: 20 },
         ]}
       />
       {show && (
