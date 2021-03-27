@@ -1,8 +1,17 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Heading, Button, DataTable, Text } from "grommet";
-
+import { Heading, Button, DataTable, Text, Image } from "grommet";
+import Bitcoin from "./img/Bitcoin.png";
+import Ethereum from "./img/Ethereum.png";
+import Cake from "./img/Cake.png";
+import graph from "./img/graph.png";
 import TradeModal from "./TradeModal";
+
+const kak = {
+  Bitcoin: Bitcoin,
+  Ethereum: Ethereum,
+  Cake: Cake,
+};
 
 const Page = styled.div`
   display: flex;
@@ -31,14 +40,24 @@ function Fund() {
 
   return (
     <Page>
-      <Header>
-        <Heading>Growth Fund</Heading>
-        <div>
-          <StyledButton primary label="Buy" onClick={setShow} />
-          <StyledButton primary label="Sell" />
-        </div>
-      </Header>
       <Body>
+        <Header>
+          <Heading level={2}>Growth Fund</Heading>
+          <div>
+            <StyledButton
+              primary
+              label="Buy"
+              onClick={setShow}
+              style={{ width: "150px" }}
+            />
+            <StyledButton primary label="Sell" style={{ width: "150px" }} />
+          </div>
+        </Header>
+        Current Price
+        <Heading style={{ marginTop: "10px", marginBottom: "10px" }}>
+          $108.81
+        </Heading>
+        <Image src={graph} width={1000} style={{ marginTop: "20px" }} />
         <Heading level={2}>Fund Description</Heading>
         High Growth cryptocurrencies with good fundamental selected from Top 100
         cyptocurrencies by market cap
@@ -48,7 +67,19 @@ function Fund() {
             {
               property: "asset",
               header: <Text>Asset</Text>,
-              primary: true,
+              render: (data) => {
+                return (
+                  <div style={{ display: "flex", alignItems: "Cente" }}>
+                    {data.asset}
+                    <img
+                      style={{ marginLeft: "5px" }}
+                      src={kak[data.asset]}
+                      width={20}
+                      height={20}
+                    />
+                  </div>
+                );
+              },
             },
             {
               property: "allocation",
@@ -61,6 +92,7 @@ function Fund() {
           data={[
             {
               asset: "Bitcoin",
+
               allocation: 60.4,
             },
             {

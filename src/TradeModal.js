@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Heading,
   Button,
@@ -9,7 +10,7 @@ import {
 } from "grommet";
 import styled from "styled-components";
 
-import { Down } from "grommet-icons";
+import { Down, StatusGood } from "grommet-icons";
 
 import { useWeb3React } from '@web3-react/core'
 import { ethers } from 'ethers'
@@ -43,19 +44,48 @@ function TradeModal({
   setGiveValue,
   takeAsset,
 }) {
-  return (
-    <Layer onEsc={onClose} onClickOutside={onClose}>
-      <Modal>
+  const [submitted, setSubmitted] = useState();
+
+  const renderSubmittedContent = () => {
+    return (
+      <div>
+        <Heading level={3} textAlign="center">
+          Trade Successfully
+        </Heading>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginBottom: "20px",
+          }}
+        >
+          <StatusGood color="green" size="xlarge" />
+        </div>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <Button primary label="OK" onClick={onClose} />
+        </div>
+      </div>
+    );
+  };
+
+  const renderTradeContent = () => {
+    return (
+      <div>
         <Heading level={3} textAlign="center">
           {title || "Buy Fund"}
         </Heading>
-
         <FormField
           name="name"
-          htmlFor="text-input-id"
+          htmlFor="text-input-give"
           label={giveAsset || "BUSD Amount"}
         >
-          <TextInput id="text-input-id" name="giveAmount" textAlign="end" value={giveValue} onChange={event => setGiveValue(event.target.value)} />
+          <TextInput
+            id="text-input-give"
+            name="giveAmount"
+            textAlign="end"
+            value={giveValue}
+            onChange={e => setGiveValue(e.target.value)}
+          />
         </FormField>
         <Row>
           <Circle>
@@ -64,11 +94,11 @@ function TradeModal({
         </Row>
         <FormField
           name="name"
-          htmlFor="text-input-id"
+          htmlFor="text-input-take"
           label={(takeAsset || "Growth Fund Token") + " " + calculateEstTakeValueUsd(giveValue)}
         >
           <TextInput
-            id="text-input-id"
+            id="text-input-take"
             name="takeAmount"
             disabled
             textAlign="end"
@@ -76,9 +106,17 @@ function TradeModal({
           />
         </FormField>
         <Box direction="row" gap="large" margin="large">
-          <BuyButton />
+          <BuyButton setSubmitted={setSubmitted} />
           <Button type="cancel" label="Cancel" onClick={onClose} />
         </Box>
+      </div>
+    );
+  };
+
+  return (
+    <Layer onEsc={onClose} onClickOutside={onClose}>
+      <Modal>
+        {submitted ? renderSubmittedContent() : renderTradeContent()}
       </Modal>
     </Layer>
   );

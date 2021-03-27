@@ -33,7 +33,7 @@ const Padding = styled.div`
 function Explorer() {
   return (
     <Page>
-      <Heading margin="none">Explore Fund</Heading>
+      <Heading margin="none">Compound Fund</Heading>
       <Padding />
       <DataTable
         columns={[
@@ -71,7 +71,7 @@ function Explorer() {
             render: (datum) => (
               <Box pad={{ vertical: "xsmall" }}>
                 <Link to="fund">
-                  <Button primary label="Invest" />
+                  <Button primary label="Compound" />
                 </Link>
               </Box>
             ),
@@ -80,7 +80,7 @@ function Explorer() {
         data={[
           {
             name: "Growth Fund",
-            price: "$108.81",
+            price: "$10.5",
             marketCap: "$200,000",
             dayChange: 6,
             weekChange: 24,
