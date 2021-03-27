@@ -1,6 +1,18 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Heading, Button, Layer, DataTable, Text, TextInput } from "grommet";
+import {
+  Heading,
+  Button,
+  Layer,
+  DataTable,
+  Text,
+  TextInput,
+  Form,
+  FormField,
+  Box,
+} from "grommet";
+
+import { Down } from "grommet-icons";
 
 const Page = styled.div`
   display: flex;
@@ -17,10 +29,27 @@ const Header = styled.div`
   width: 100%;
 `;
 
+const Row = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const Circle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  background-color: gray;
+  margin: 20px;
+`;
+
 const Body = styled.div``;
 
 const Modal = styled.div`
-  margin: 20px;
+  margin: 50px;
+  margin-top: 20px;
 `;
 
 const StyledButton = styled(Button)`
@@ -29,7 +58,7 @@ const StyledButton = styled(Button)`
 
 function Fund() {
   const [show, setShow] = useState();
-  const [value, setValue] = useState("");
+  const [giveValue, setGiveValue] = useState("");
 
   return (
     <Page>
@@ -82,12 +111,51 @@ function Fund() {
           onClickOutside={() => setShow(false)}
         >
           <Modal>
-            <Heading level={3}></Hea
-            <TextInput
-              placeholder="type here"
-              value={value}
-              onChange={(event) => setValue(event.target.value)}
-            />
+            <Heading level={3} textAlign="center">
+              Buy Fund
+            </Heading>
+            <Form
+              value={giveValue}
+              onChange={(nextValue) => setGiveValue(nextValue)}
+              onSubmit={({ value }) => {}}
+            >
+              <FormField
+                name="name"
+                htmlFor="text-input-id"
+                label="BUSD Amount"
+              >
+                <TextInput
+                  id="text-input-id"
+                  name="giveAmount"
+                  textAlign="end"
+                />
+              </FormField>
+              <Row>
+                <Circle>
+                  <Down color="plain" size="medium" />
+                </Circle>
+              </Row>
+              <FormField
+                name="name"
+                htmlFor="text-input-id"
+                label="Growth Fund Token"
+              >
+                <TextInput
+                  id="text-input-id"
+                  name="takeAmount"
+                  disabled
+                  textAlign="end"
+                />
+              </FormField>
+              <Box direction="row" gap="large" margin="large">
+                <Button type="submit" primary label="Submit" />
+                <Button
+                  type="cancel"
+                  label="Cancel"
+                  onClick={() => setShow(false)}
+                />
+              </Box>
+            </Form>
           </Modal>
         </Layer>
       )}
