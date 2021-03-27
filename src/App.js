@@ -7,10 +7,11 @@ import Badge from "./Badge";
 import Explorer from "./Explorer";
 import Fund from "./Fund";
 import FundManager from "./FundManagement";
-import WalletConnect from './walletConnect'
+import Compound from "./Compound";
+import WalletConnect from "./walletConnect";
 
-import { Web3ReactProvider } from '@web3-react/core'
-import { Web3Provider } from '@ethersproject/providers'
+import { Web3ReactProvider } from "@web3-react/core";
+import { Web3Provider } from "@ethersproject/providers";
 
 const AppBar = (props) => (
   <Box
@@ -46,13 +47,15 @@ function App() {
           <p>
             <Button secondary onClick={onClickChangeRole}>
               <a href="fund-manager">Fund Manager</a>
-            </Button> | <WalletConnect />
+            </Button>{" "}
+            | <WalletConnect />
           </p>
         </AppBar>
         <Router>
           <Explorer path="/" />
           <Fund path="fund" />
           <FundManager path="fund-manager" />
+          <Compound path="compound" />
         </Router>
       </Web3ReactProvider>
     </Grommet>
@@ -60,9 +63,9 @@ function App() {
 }
 
 function getLibrary(provider) {
-  const library = new Web3Provider(provider)
-  library.pollingInterval = 12000
-  return library
+  const library = new Web3Provider(provider);
+  library.pollingInterval = 12000;
+  return library;
 }
 
 export default App;
