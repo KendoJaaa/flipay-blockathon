@@ -43,7 +43,7 @@ function App() {
     <Grommet plain>
       <Web3ReactProvider getLibrary={getLibrary}>
         <AppBar>
-          Pika Finance
+          <Button href="/" label="Pika Finance" />
           <p>
             <Button secondary onClick={onClickChangeRole}>
               <a href="fund-manager">Fund Manager</a>
