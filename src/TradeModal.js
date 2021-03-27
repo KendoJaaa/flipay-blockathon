@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Heading,
   Button,
@@ -9,7 +10,7 @@ import {
 } from "grommet";
 import styled from "styled-components";
 
-import { Down } from "grommet-icons";
+import { Down, StatusGood } from "grommet-icons";
 
 const Row = styled.div`
   display: flex;
@@ -40,9 +41,33 @@ function TradeModal({
   setGiveValue,
   takeAsset,
 }) {
-  return (
-    <Layer onEsc={onClose} onClickOutside={onClose}>
-      <Modal>
+  const [submitted, setSubmitted] = useState();
+
+  const renderSubmittedContent = () => {
+    return (
+      <div>
+        <Heading level={3} textAlign="center">
+          Trade Successfully
+        </Heading>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginBottom: "20px",
+          }}
+        >
+          <StatusGood color="green" size="xlarge" />
+        </div>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <Button primary label="OK" onClick={onClose} />
+        </div>
+      </div>
+    );
+  };
+
+  const renderTradeContent = () => {
+    return (
+      <div>
         <Heading level={3} textAlign="center">
           {title || "Buy Fund"}
         </Heading>
@@ -76,10 +101,23 @@ function TradeModal({
             />
           </FormField>
           <Box direction="row" gap="large" margin="large">
-            <Button type="submit" primary label="Submit" />
+            <Button
+              type="submit"
+              primary
+              label="Submit"
+              onClick={setSubmitted}
+            />
             <Button type="cancel" label="Cancel" onClick={onClose} />
           </Box>
         </Form>
+      </div>
+    );
+  };
+
+  return (
+    <Layer onEsc={onClose} onClickOutside={onClose}>
+      <Modal>
+        {submitted ? renderSubmittedContent() : renderTradeContent()}
       </Modal>
     </Layer>
   );
