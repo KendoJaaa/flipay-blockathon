@@ -66,18 +66,14 @@ function FundManagement() {
             property: "swap",
             header: "Swap",
             render: (datum) => (
-              <Button primary onClick={() => setShow(true)}>
-                Swap
-              </Button>
+              <Button primary onClick={() => setShow(true)} label="Swap" />
             ),
           },
           {
             property: "farm",
             header: "Farm",
             render: (datum) => (
-              <Button primary onClick={() => setShow2(true)}>
-                Farm
-              </Button>
+              <Button primary onClick={() => setShow2(true)} label="Farm" />
             ),
           },
         ]}
@@ -119,7 +115,7 @@ function FundManagement() {
                 header: "Complete",
                 render: (datum) => (
                   <Box pad={{ vertical: "xsmall" }}>
-                    <Button primary>Farm</Button>
+                    <Button primary label="Farm" />
                   </Box>
                 ),
               },
