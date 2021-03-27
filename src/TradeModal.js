@@ -46,43 +46,59 @@ function TradeModal({
         <Heading level={3} textAlign="center">
           {title || "Buy Fund"}
         </Heading>
-        <Form
-          value={giveValue}
-          onChange={(nextValue) => setGiveValue(nextValue)}
-          onSubmit={({ value }) => {}}
+
+        <FormField
+          name="name"
+          htmlFor="text-input-id"
+          label={giveAsset || "BUSD Amount"}
         >
-          <FormField
-            name="name"
-            htmlFor="text-input-id"
-            label={giveAsset || "BUSD Amount"}
-          >
-            <TextInput id="text-input-id" name="giveAmount" textAlign="end" />
-          </FormField>
-          <Row>
-            <Circle>
-              <Down color="plain" size="medium" />
-            </Circle>
-          </Row>
-          <FormField
-            name="name"
-            htmlFor="text-input-id"
-            label={takeAsset || "Growth Fund Token"}
-          >
-            <TextInput
-              id="text-input-id"
-              name="takeAmount"
-              disabled
-              textAlign="end"
-            />
-          </FormField>
-          <Box direction="row" gap="large" margin="large">
-            <Button type="submit" primary label="Submit" />
-            <Button type="cancel" label="Cancel" onClick={onClose} />
-          </Box>
-        </Form>
+          <TextInput id="text-input-id" name="giveAmount" textAlign="end" value={giveValue} onChange={event => setGiveValue(event.target.value)} />
+        </FormField>
+        <Row>
+          <Circle>
+            <Down color="plain" size="medium" />
+          </Circle>
+        </Row>
+        <FormField
+          name="name"
+          htmlFor="text-input-id"
+          label={(takeAsset || "Growth Fund Token") + " " + calculateEstTakeValueUsd(giveValue)}
+        >
+          <TextInput
+            id="text-input-id"
+            name="takeAmount"
+            disabled
+            textAlign="end"
+            value={calculateTakeValue(giveValue)}
+          />
+        </FormField>
+        <Box direction="row" gap="large" margin="large">
+          <Button type="submit" primary label="Submit" />
+          <Button type="cancel" label="Cancel" onClick={onClose} />
+        </Box>
       </Modal>
     </Layer>
   );
+}
+
+const takeTokenPrice = 12.8
+function calculateTakeValue(giveValue) {
+  if (giveValue === '') {
+    return ''
+  }
+
+  return (parseFloat(giveValue) / takeTokenPrice).toFixed(3)
+}
+
+function calculateEstTakeValueUsd(giveValue) {
+  if (giveValue === '') {
+    return ''
+  }
+  return `(~${formatUsd(giveValue)})`
+}
+
+function formatUsd(usdAmount) {
+  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(usdAmount);
 }
 
 export default TradeModal;
