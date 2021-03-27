@@ -30,24 +30,9 @@ const Padding = styled.div`
   height: 50px;
 `;
 
-const AppBar = (props) => (
-  <Box
-    tag="header"
-    direction="row"
-    align="center"
-    justify="between"
-    background="brand"
-    pad={{ left: "medium", right: "small", vertical: "small" }}
-    elevation="medium"
-    style={{ zIndex: "1" }}
-    {...props}
-  />
-);
-
 function Explorer() {
   return (
     <Grommet plain>
-      <AppBar>Pika Finance</AppBar>
       <Page>
         <Heading margin="none">Explore Fund</Heading>
         <Padding />
@@ -77,13 +62,9 @@ function Explorer() {
               render: (datum) => <Badge value={datum.weekChange} />,
             },
             {
-              property: "last7days",
-              header: "Last 7 Days",
-              render: (datum) => (
-                <Box pad={{ vertical: "xsmall" }}>
-                  <Image src={`./img/${datum.img}.png`} />
-                </Box>
-              ),
+              property: "apy",
+              header: "APY",
+              render: (datum) => <Badge value={datum.apy}></Badge>,
             },
             {
               property: "button",
@@ -99,13 +80,14 @@ function Explorer() {
           ]}
           data={[
             {
-              name: "ABC Fund",
+              name: "Growth Fund",
               price: "$10.5",
               marketCap: "$200,000",
               dayChange: 6,
               weekChange: 24,
               percent: 20,
               img: "aa",
+              apy: 150,
             },
             {
               name: "XYZ Fund",
@@ -115,6 +97,7 @@ function Explorer() {
               weekChange: -24,
               percent: 30,
               img: "bb",
+              apy: 150,
             },
             {
               name: "Big Cap Fund",
@@ -124,6 +107,7 @@ function Explorer() {
               weekChange: 4,
               percent: 40,
               img: "cc",
+              apy: 180,
             },
             {
               name: "Defi Fund",
@@ -133,6 +117,7 @@ function Explorer() {
               weekChange: -4,
               percent: 80,
               img: "dd",
+              apy: 200,
             },
           ]}
         />

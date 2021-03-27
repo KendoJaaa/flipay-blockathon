@@ -6,12 +6,29 @@ import Badge from "./Badge";
 import Explorer from "./Explorer";
 import Fund from "./Fund";
 
+const AppBar = (props) => (
+  <Box
+    tag="header"
+    direction="row"
+    align="center"
+    justify="between"
+    background="brand"
+    pad={{ left: "medium", right: "small", vertical: "small" }}
+    elevation="medium"
+    style={{ zIndex: "1" }}
+    {...props}
+  />
+);
+
 function App() {
   return (
-    <Router>
-      <Explorer path="/" />
-      <Fund path="fund" />
-    </Router>
+    <div>
+      <AppBar>Pika Finance</AppBar>
+      <Router>
+        <Explorer path="/" />
+        <Fund path="fund" />
+      </Router>
+    </div>
   );
 }
 
