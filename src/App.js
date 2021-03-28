@@ -48,7 +48,9 @@ function App() {
           <Button href="/" label="Pika Finance" />
           <p>
             <Button secondary onClick={onClickChangeRole}>
-              <a href="fund-manager-list">Fund Manager</a>
+              <a href="fund-manager-list" style={{ color: "white" }}>
+                Fund Manager
+              </a>
             </Button>{" "}
             | <WalletConnect />
           </p>
