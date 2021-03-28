@@ -151,39 +151,19 @@ function BuyButton(props) {
     return <span></span>
   }
 
-  const swap = async () => {
-    const wbnb = contractUtil.getWBNBContractWithSigner(library, 'WBNB')
-    const wrapTx = await wbnb.deposit({ value: ethers.utils.parseEther('1.0') })
-    const r = await library.waitForTransaction(wrapTx.hash)
-
-    console.log(r)
-  }
-
   const buy = async () => {
-    // const wbnb = getBep20ContractWithSigner(library, 'WBNB')
-    // const wrapTx = await wbnb.deposit().send({ value: '1000000000000000000' })
-
-    // const wrapTx = await library.getSigner().sendTransaction({
-    //   to: contractAddresses.WBNB,
-    //   // value: ethers.utils.parseEther("1.0")
-    //   value: '500000000000000000',
-    // });
-    // console.log(wrapTx)
+    // const wbnb = contractUtil.getWBNBContractWithSigner(library, 'WBNB')
+    // wbnb.approve(contractUtil.contractAddresses.PIKA,'0x100000000000000000000')
+    // const tx = await bep20WithSigner.approve(addressSpender, minAllowance)
+    await contractUtil.tryApproveBep20Token(library, 'WBNB', contractUtil.contractAddresses.FUNDTOKEN)
 
     const contract = contractUtil.getFundTokenContractWithSigner(library)
-    const tx = await contract.depositAsset(contractUtil.contractAddresses.WBNB, 100000)
+    const tx = await contract.depositAsset(contractUtil.contractAddresses.WBNB, 10000000000)
     console.log(tx)
     await library.waitForTransaction(tx.hash)
     setSubmitted(true)
-
-    // await tryApproveBep20Token(library, 'PIKA', '0x2e915b2eADe327c4CcC645b5086D92412284C143')
-    // const pikaAddress = '0x1C76e0FC510c33c2804f4362fa9197AEeADc9fF2'
-    // const pikaAbi = require('./abi/bep20abi.json')
-    // const pikaContract = new ethers.Contract(pikaAddress, pikaAbi, library);
-    // const pikaWithSigner = pikaContract.connect(library.getSigner());
   }
   return (<span>
-    <Button type="submit" primary label="Swap" onClick={swap} />
     <Button type="submit" primary label="Submit" onClick={buy} />
   </span>
   )

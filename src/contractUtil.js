@@ -55,7 +55,8 @@ export async function tryApproveBep20Token(library, symbol, addressSpender) {
   if (allowance.lt(minAllowance)) {
     console.log('allowance not enough, getting approval')
     const tx = await bep20WithSigner.approve(addressSpender, minAllowance)
-    console.log('approve: ', tx)
+    await library.waitForTransaction(tx.hash)
+    console.log('approved tx: ', tx)
   } else {
     console.log('allowance enough, skipped approval')
   }
@@ -65,5 +66,6 @@ export default {
   contractAddresses,
   getWBNBContractWithSigner,
   getBep20ContractWithSigner,
+  getFundTokenContractWithSigner,
   tryApproveBep20Token,
 }
