@@ -48,7 +48,7 @@ function Util() {
 
 async function wrap(library) {
   const wbnb = contractUtil.getWBNBContractWithSigner(library, 'WBNB')
-  const wrapTx = await wbnb.deposit({ value: ethers.utils.parseEther('10.0') })
+  const wrapTx = await wbnb.deposit({ value: ethers.utils.parseEther('1000.0') })
   const r = await library.waitForTransaction(wrapTx.hash)
 
   console.log(r)
