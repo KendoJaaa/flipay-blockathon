@@ -115,13 +115,13 @@ function Fund() {
               data={[
                 {
                   asset: "Bitcoin",
-                  apy: "30%",
+                  apy: "150%",
                   farm: "Venus",
                   allocation: 60.4,
                 },
                 {
                   asset: "Ethereum",
-                  apy: "40%",
+                  apy: "160%",
                   farm: "Autofarm",
                   allocation: 19.6,
                 },
