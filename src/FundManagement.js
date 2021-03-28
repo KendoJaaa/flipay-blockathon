@@ -18,8 +18,6 @@ const Row = styled.div`
   justify-content: space-between;
 `;
 
-function FarmModal() {}
-
 function FundManagement() {
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
@@ -90,7 +88,7 @@ function FundManagement() {
         <TradeModal
           title="Swap Coin"
           onClose={() => setShow(false)}
-          giveAsset="BUSC"
+          giveAsset="WBNB"
           takeAsset="Bitcoin"
           giveValue={giveValue}
           setGiveValue={setGiveValue}
