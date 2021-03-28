@@ -54,25 +54,41 @@ function Fund() {
             <StyledButton primary label="Sell" style={{ width: "150px" }} />
           </div>
         </Header>
-        <div style={{ display: "flex" }}>
-          <div>
-            Current Price
+        <div style={{ display: "flex", justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex' }}>
+            <div>
+              Current Price
             <Heading style={{ marginTop: "10px", marginBottom: "10px" }}>
-              $108.81
+                $108.81
             </Heading>
+            </div>
+            <div style={{ marginLeft: "50px" }}>
+              APY
+            <Heading
+                level={2}
+                style={{
+                  marginTop: "10px",
+                  marginBottom: "10px",
+                  marginTop: "10px",
+                }}
+              >
+                150%
+            </Heading>
+            </div>
           </div>
-          <div style={{ marginLeft: "50px" }}>
-            APY
+          <div style={{ padding: '0 16px' }}>
+            <div style={{ textAlign: 'right' }}>You own:</div>
             <Heading
               level={2}
               style={{
                 marginTop: "10px",
                 marginBottom: "10px",
                 marginTop: "10px",
+                textAlign: 'right',
               }}
             >
-              150%
-            </Heading>
+              0
+            </Heading> Growth Fund Token
           </div>
         </div>
         <Image src={graph} width={1000} style={{ marginTop: "20px" }} />
