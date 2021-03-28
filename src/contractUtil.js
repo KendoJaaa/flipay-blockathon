@@ -11,6 +11,7 @@ const contractAddresses = {
   WBNB: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
   BUSD: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
   CAKE: '0x05fF2B0DB69458A0750badebc4f9e13aDd608C7F',
+  WBNB_BUSD: '0x1B96B92314C44b159149f7E0303511fB2Fc4774f'
 }
 
 const contractAbis = {
