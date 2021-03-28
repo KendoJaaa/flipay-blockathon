@@ -63,6 +63,10 @@ function FundManagement() {
             render: (datum) => <div>{datum.percent} %</div>,
           },
           {
+            property: "farm",
+            header: "Farming",
+          },
+          {
             property: "swap",
             header: "Swap",
             render: (datum) => (
@@ -78,10 +82,25 @@ function FundManagement() {
           },
         ]}
         data={[
-          { name: "Bitcoin", amount: "10.2342 BTC", percent: 43 },
-          { name: "Ethereum", amount: "200.33 ETC", percent: 23 },
-          { name: "Cake", amount: "2000.1 CAKE", percent: 13 },
-          { name: "WBNB", amount: "1000 WBNB", percent: 11 },
+          {
+            name: "Bitcoin",
+            amount: "10.2342 BTC",
+            farm: "Venus",
+            percent: 43,
+          },
+          {
+            name: "Ethereum",
+            amount: "200.33 ETC",
+            farm: "Autofarm",
+            percent: 23,
+          },
+          {
+            name: "Cake",
+            amount: "2000.1 CAKE",
+            farm: "Autofarm",
+            percent: 13,
+          },
+          { name: "WBNB", amount: "1000 WBNB", farm: "-", percent: 11 },
         ]}
       />
       {show && (
