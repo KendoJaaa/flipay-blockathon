@@ -1,3 +1,4 @@
+import React from 'react'
 import { useWeb3React } from "@web3-react/core";
 import { InjectedConnector } from "@web3-react/injected-connector";
 
@@ -10,6 +11,10 @@ const injectedConnector = new InjectedConnector({
 
 function WalletConnect() {
   const { chainId, account, activate, active } = useWeb3React();
+
+  React.useEffect(() => {
+    activate(injectedConnector);
+  });
 
   const onClick = () => {
     activate(injectedConnector);
