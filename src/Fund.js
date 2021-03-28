@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { Heading, Button, DataTable, Text, Image } from "grommet";
 import Bitcoin from "./img/Bitcoin.png";
@@ -42,6 +42,7 @@ const StyledButton = styled(Button)`
 
 function Fund() {
   const [show, setShow] = useState();
+  const [buyOrSell, setBuyOrSell] = useState();
   const [giveValue, setGiveValue] = useState("");
   const [tokenOwned, setTokenOwned] = useState(0)
   const { account, library } = useWeb3React()
@@ -60,6 +61,14 @@ function Fund() {
     updateBalance()
   }, [])
 
+  const setShowBuy = useCallback(() => {
+    setShow(true);
+    setBuyOrSell("buy");
+  }, [setShow, setBuyOrSell]);
+  const setShowSell = useCallback(() => {
+    setShow(true);
+    setBuyOrSell("sell");
+  }, [setShow, setBuyOrSell]);
   return (
     <Page>
       <Body>
@@ -69,10 +78,11 @@ function Fund() {
             <StyledButton
               primary
               label="Buy"
-              onClick={setShow}
+              onClick={setShowBuy}
               style={{ width: "150px" }}
             />
-            <StyledButton label="Sell" style={{ width: "150px" }} />
+            <StyledButton label="Sell"
+              onClick={setShowSell} style={{ width: "150px" }} />
           </div>
         </Header>
         <div style={{ display: "flex", justifyContent: 'space-between' }}>
@@ -199,6 +209,7 @@ function Fund() {
       {show && (
         <TradeModal
           onClose={() => setShow(false)}
+          buyOrSell={buyOrSell}
           giveValue={giveValue}
           setGiveValue={setGiveValue}
         />

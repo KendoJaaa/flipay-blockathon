@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import {
   Heading,
   Button,
@@ -44,6 +44,7 @@ function TradeModal({
   giveValue,
   setGiveValue,
   takeAsset,
+  buyOrSell
 }) {
   const [submitted, setSubmitted] = useState();
 
@@ -69,11 +70,12 @@ function TradeModal({
     );
   };
 
+  const _title = buyOrSell === 'buy' ? "Buy Fund" : "Sell Fund";
   const renderTradeContent = () => {
     return (
       <div>
         <Heading level={3} textAlign="center">
-          {title || "Buy Fund"}
+          {title || _title}
         </Heading>
         <FormField
           name="name"
@@ -107,7 +109,7 @@ function TradeModal({
           />
         </FormField>
         <Box direction="row" gap="large" margin="large">
-          <BuyButton setSubmitted={setSubmitted} giveValue={giveValue} />
+          {buyOrSell === 'buy' ? <BuyButton setSubmitted={setSubmitted} giveValue={giveValue} /> : <SellButton setSubmitted={setSubmitted} giveValue={giveValue} />}
           <Button label="Cancel" onClick={onClose} />
         </Box>
       </div>
@@ -185,6 +187,37 @@ function BuyButton(props) {
   }
   return (<span>
     <Button type="submit" primary label="Submit" onClick={buy} />
+  </span>
+  )
+}
+
+function SellButton(props) {
+  const { account, library } = useWeb3React();
+  const { setSubmitted, giveValue } = props
+
+  if (!account || !library) {
+    return <span></span>
+  }
+
+  const sell = async () => {
+
+    const contract = contractUtil.getFundTokenContractWithSigner(library)
+    const depositTx = await contract.withdrawAsset(contractUtil.contractAddresses.WBNB, ethers.utils.parseEther(giveValue))
+    console.log(depositTx)
+    await library.waitForTransaction(depositTx.hash)
+    setSubmitted(true)
+
+    // const contract = contractUtil.getFundTokenContractWithSigner(library)
+    // const tx = await contract.swapAsset(
+    //   contractUtil.contractAddresses.WBNB,
+    //   contractUtil.contractAddresses.BUSD,
+    //   '1000000000000000000', { gasLimit: '1000000' })
+    // console.log(tx)
+    // await library.waitForTransaction(tx.hash)
+    // setSubmitted(true)
+  }
+  return (<span>
+    <Button type="submit" primary label="Submit" onClick={sell} />
   </span>
   )
 }
