@@ -21,10 +21,10 @@ function WalletConnect() {
   };
 
   if (account) {
-    return <span> Account: {formatShortAddress(account)} </span>;
+    return <span style={{ padding: '0 8px' }}> Account: {formatShortAddress(account)} </span>;
   } else {
     return (
-      <a href="#" onClick={onClick} style={{ color: "white" }}>
+      <a href="#" onClick={onClick} style={{ color: "white", padding: '0 8px' }}>
         Connect
       </a>
     );

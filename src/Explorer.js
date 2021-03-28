@@ -33,9 +33,10 @@ const Padding = styled.div`
 function Explorer() {
   return (
     <Page>
-      <Heading margin="none">Explore Fund</Heading>
+      <Heading margin="none">Explore Funds</Heading>
       <Padding />
       <DataTable
+        style={{ width: '80%' }}
         columns={[
           {
             property: "name",

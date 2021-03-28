@@ -63,7 +63,7 @@ function FundManagerList() {
           style={{ padding: "20px", cursor: "pointer" }}
           onClick={() => setShow(true)}
         >
-          <Heading level={2}>+ Create Fund</Heading>
+          <Heading level={2} style={{ color: 'grey' }}>+ Create Fund</Heading>
         </Card>
       </div>
       {show && (

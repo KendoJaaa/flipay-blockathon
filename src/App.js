@@ -45,13 +45,19 @@ function App() {
           </span>
           <p>
             <Button secondary>
-              <a href="compound" style={{ color: "white" }}>
+              <a href="/" style={{ color: "white", padding: '0 8px' }}>
+                Explore Funds
+              </a>
+            </Button>{" "}
+            |{" "}
+            <Button secondary>
+              <a href="compound" style={{ color: "white", padding: '0 8px' }}>
                 Compound
               </a>
             </Button>{" "}
             |{" "}
             <Button secondary>
-              <a href="fund-manager-list" style={{ color: "white" }}>
+              <a href="fund-manager-list" style={{ color: "white", padding: '0 8px' }}>
                 Fund Manager
               </a>
             </Button>{" "}
