@@ -10,7 +10,7 @@ import FundManager from "./FundManagement";
 import FundManagerList from "./FundManagerList";
 import Compound from "./Compound";
 import WalletConnect from "./walletConnect";
-import Util from './Util'
+import Util from "./Util";
 
 import { Web3ReactProvider } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
@@ -48,7 +48,9 @@ function App() {
           <Button href="/" label="Pika Finance" />
           <p>
             <Button secondary onClick={onClickChangeRole}>
-              <a href="fund-manager">Fund Manager</a>
+              <a href="fund-manager-list" style={{ color: "white" }}>
+                Fund Manager
+              </a>
             </Button>{" "}
             | <WalletConnect />
           </p>
