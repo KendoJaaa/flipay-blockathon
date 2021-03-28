@@ -1,0 +1,69 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "funds",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "config",
+        "type": "address"
+      }
+    ],
+    "name": "setConfig",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_fundName",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_fundSymbol",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "maximumToken",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address[]",
+        "name": "_acceptAssets",
+        "type": "address[]"
+      }
+    ],
+    "name": "deployFund",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "_fundToken",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

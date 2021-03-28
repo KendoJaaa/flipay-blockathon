@@ -10,6 +10,10 @@ import {
   Heading,
 } from "grommet";
 
+import { useWeb3React } from '@web3-react/core'
+import { ethers } from 'ethers'
+import contractUtil from './contractUtil'
+
 const Page = styled.div`
   display: flex;
   align-items: center;
@@ -22,6 +26,8 @@ function FundManagerList() {
   const [show, setShow] = useState(false);
   const [added, setAdded] = useState("");
   const [value, setValue] = useState("");
+  const { account, library } = useWeb3React();
+
   return (
     <Page>
       <Heading>Asset Management</Heading>
@@ -76,7 +82,7 @@ function FundManagerList() {
           <FormField label="Fund Description">
             <TextInput />
           </FormField>
-          <FormField label="Fund Limit">
+          <FormField label="Fund Limit (USD)">
             <TextInput />
           </FormField>
           <Box direction="row" gap="medium">
@@ -84,7 +90,8 @@ function FundManagerList() {
               type="submit"
               primary
               label="Submit"
-              onClick={() => {
+              onClick={async () => {
+                await createNewFund(library)
                 setAdded(value);
                 setShow(false);
               }}
@@ -95,6 +102,17 @@ function FundManagerList() {
       )}
     </Page>
   );
+}
+
+const WBTC = '0x6F065a63600f6c7A9eF121993B0151b89EFA795E';
+const WETH = '0x2170Ed0880ac9A755fd29B2688956BD959F933F8';
+const WBNB = '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c';
+
+async function createNewFund(library) {
+  const contract = contractUtil.getFundDeployerContractWithSigner(library)
+  const tx = await contract.deployFund('TEAM', 'Fund', 1000, [WBTC, WETH, WBNB])
+
+  await library.waitForTransaction(tx.hash)
 }
 
 export default FundManagerList;
