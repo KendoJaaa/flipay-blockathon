@@ -107,7 +107,7 @@ function TradeModal({
           />
         </FormField>
         <Box direction="row" gap="large" margin="large">
-          <BuyButton setSubmitted={setSubmitted} />
+          <BuyButton setSubmitted={setSubmitted} giveValue={giveValue} />
           <Button label="Cancel" onClick={onClose} />
         </Box>
       </div>
@@ -123,7 +123,7 @@ function TradeModal({
   );
 }
 
-const takeTokenPrice = 3
+const takeTokenPrice = 7
 function calculateTakeValue(giveValue) {
   if (giveValue === '') {
     return ''
@@ -145,7 +145,7 @@ function formatUsd(usdAmount) {
 
 function BuyButton(props) {
   const { account, library } = useWeb3React();
-  const { setSubmitted } = props
+  const { setSubmitted, giveValue } = props
 
   if (!account || !library) {
     return <span></span>
@@ -169,7 +169,7 @@ function BuyButton(props) {
     // await library.waitForTransaction(tx2.hash)
 
     const contract = contractUtil.getFundTokenContractWithSigner(library)
-    const depositTx = await contract.depositAsset(contractUtil.contractAddresses.WBNB, '10000000000000000000')
+    const depositTx = await contract.depositAsset(contractUtil.contractAddresses.WBNB, ethers.utils.parseEther(giveValue))
     console.log(depositTx)
     await library.waitForTransaction(depositTx.hash)
     setSubmitted(true)

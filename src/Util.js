@@ -41,7 +41,7 @@ function Util() {
     <Page>
       <Heading margin="none">Utility</Heading>
       <Padding />
-      <Button primary onClick={() => wrap(library)}>Wrap 10 BNB</Button>
+      <Button primary onClick={() => wrap(library)}> Wrap 1,000 BNB </Button>
     </Page>
   );
 }
