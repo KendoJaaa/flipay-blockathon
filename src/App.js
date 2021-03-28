@@ -11,6 +11,7 @@ import FundManagerList from "./FundManagerList";
 import Compound from "./Compound";
 import WalletConnect from "./walletConnect";
 import Util from "./Util";
+import logo from './logo.png'
 
 import { Web3ReactProvider } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
@@ -45,7 +46,12 @@ function App() {
     <Grommet plain>
       <Web3ReactProvider getLibrary={getLibrary}>
         <AppBar>
-          <Button href="/" label="Pika Finance" />
+          <span style={{ lineHeight: '48px', paddingLeft: '24px' }}>
+            <img src={logo} style={{ height: 32, top: 8, left: -8, position: 'relative' }} />
+            <a href="/" label="" style={{ color: 'white', textDecoration: 'none', fontWeight: 'bold', fontSize: 20 }} >
+              Pika Finance
+            </a>
+          </span>
           <p>
             <Button secondary onClick={onClickChangeRole}>
               <a href="fund-manager-list" style={{ color: "white" }}>
