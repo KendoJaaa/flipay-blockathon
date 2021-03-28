@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Heading, Button, DataTable, Text, Image } from "grommet";
 import Bitcoin from "./img/Bitcoin.png";
@@ -7,6 +7,11 @@ import Cake from "./img/Cake.png";
 import graph from "./img/graph.png";
 import pie from "./img/pie.png";
 import TradeModal from "./TradeModal";
+
+import { useWeb3React } from '@web3-react/core'
+import { ethers } from 'ethers'
+import contractUtil from './contractUtil'
+
 
 const kak = {
   Bitcoin: Bitcoin,
@@ -38,6 +43,22 @@ const StyledButton = styled(Button)`
 function Fund() {
   const [show, setShow] = useState();
   const [giveValue, setGiveValue] = useState("");
+  const [tokenOwned, setTokenOwned] = useState(0)
+  const { account, library } = useWeb3React()
+
+  const updateBalance = async () => {
+    if (!account || !library) {
+      return
+    }
+    const contract = contractUtil.getFundTokenContractWithSigner(library)
+    const r = await contract.balanceOf(account)
+    console.log(r)
+    setTokenOwned(parseFloat(ethers.utils.formatEther(r)).toFixed(3))
+  }
+
+  useEffect(async () => {
+    updateBalance()
+  }, [])
 
   return (
     <Page>
@@ -51,7 +72,7 @@ function Fund() {
               onClick={setShow}
               style={{ width: "150px" }}
             />
-            <StyledButton primary label="Sell" style={{ width: "150px" }} />
+            <StyledButton label="Sell" style={{ width: "150px" }} />
           </div>
         </Header>
         <div style={{ display: "flex", justifyContent: 'space-between' }}>
@@ -87,7 +108,7 @@ function Fund() {
                 textAlign: 'right',
               }}
             >
-              0
+              {tokenOwned}
             </Heading> Growth Fund Token
           </div>
         </div>
