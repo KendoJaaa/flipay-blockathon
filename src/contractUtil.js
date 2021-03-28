@@ -4,6 +4,7 @@ const contractAddresses = {
   // PIKA: '0x1C76e0FC510c33c2804f4362fa9197AEeADc9fF2', // testnet
   // PIKA: '0x39F5839d4E20d252f90d20FB7f8228372a26601c', // local
   FUNDTOKEN: '0x0E1226b42Ec323b79b34e3580feB8Eaa1c0d5Efd', // local 2
+  FUNDDEPLOYER: '0x2E7e6E10DEDbAe6ED57BB40Da32c75ABBE52F028',
 
   WBTC: '0x6F065a63600f6c7A9eF121993B0151b89EFA795E',
   WETH: '0x2170Ed0880ac9A755fd29B2688956BD959F933F8',
@@ -34,6 +35,15 @@ export function getFundTokenContractWithSigner(library) {
   const fundTokenWithSigner = fundTokenContract.connect(library.getSigner());
 
   return fundTokenWithSigner
+}
+
+export function getFundDeployerContractWithSigner(library) {
+  const contractAddress = contractAddresses['FUNDDEPLOYER']
+  const fundDeployerAbi = require('./abi/FundDeployer.abi.json')
+  const fundDeployerContract = new ethers.Contract(contractAddress, fundDeployerAbi, library);
+  const fundDeployerWithSigner = fundDeployerContract.connect(library.getSigner());
+
+  return fundDeployerWithSigner
 }
 
 export function getBep20ContractWithSigner(library, symbol) {
@@ -69,5 +79,6 @@ export default {
   getWBNBContractWithSigner,
   getBep20ContractWithSigner,
   getFundTokenContractWithSigner,
+  getFundDeployerContractWithSigner,
   tryApproveBep20Token,
 }
