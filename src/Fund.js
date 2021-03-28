@@ -212,6 +212,7 @@ function Fund() {
           buyOrSell={buyOrSell}
           giveValue={giveValue}
           setGiveValue={setGiveValue}
+          updateBalance={updateBalance}
         />
       )}
     </Page>

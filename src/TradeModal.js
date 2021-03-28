@@ -44,7 +44,8 @@ function TradeModal({
   giveValue,
   setGiveValue,
   takeAsset,
-  buyOrSell
+  buyOrSell,
+  updateBalance
 }) {
   const [submitted, setSubmitted] = useState();
 
@@ -109,7 +110,7 @@ function TradeModal({
           />
         </FormField>
         <Box direction="row" gap="large" margin="large">
-          {buyOrSell === 'buy' ? <BuyButton setSubmitted={setSubmitted} giveValue={giveValue} /> : <SellButton setSubmitted={setSubmitted} giveValue={giveValue} />}
+          {buyOrSell === 'buy' ? <BuyButton setSubmitted={setSubmitted} giveValue={giveValue} updateBalance={updateBalance} /> : <SellButton setSubmitted={setSubmitted} giveValue={giveValue} />}
           <Button label="Cancel" onClick={onClose} />
         </Box>
       </div>
@@ -147,7 +148,7 @@ function formatUsd(usdAmount) {
 
 function BuyButton(props) {
   const { account, library } = useWeb3React();
-  const { setSubmitted, giveValue } = props
+  const { setSubmitted, giveValue, updateBalance } = props
 
   if (!account || !library) {
     return <span></span>
@@ -175,6 +176,7 @@ function BuyButton(props) {
     console.log(depositTx)
     await library.waitForTransaction(depositTx.hash)
     setSubmitted(true)
+    updateBalance()
 
     // const contract = contractUtil.getFundTokenContractWithSigner(library)
     // const tx = await contract.swapAsset(
