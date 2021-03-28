@@ -97,12 +97,12 @@ function Fund() {
                   },
                 },
                 {
-                  property: "d",
-                  header: <Text></Text>,
+                  property: "apy",
+                  header: <Text>APY</Text>,
                 },
                 {
-                  property: "d",
-                  header: <Text></Text>,
+                  property: "farm",
+                  header: <Text>Farm</Text>,
                 },
                 {
                   property: "allocation",
@@ -115,14 +115,20 @@ function Fund() {
               data={[
                 {
                   asset: "Bitcoin",
+                  apy: "30%",
+                  farm: "Venus",
                   allocation: 60.4,
                 },
                 {
                   asset: "Ethereum",
+                  apy: "40%",
+                  farm: "Autofarm",
                   allocation: 19.6,
                 },
                 {
                   asset: "Cake",
+                  apy: "100%",
+                  farm: "Autofarm",
                   allocation: 10.0,
                 },
               ]}
