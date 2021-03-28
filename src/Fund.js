@@ -5,6 +5,7 @@ import Bitcoin from "./img/Bitcoin.png";
 import Ethereum from "./img/Ethereum.png";
 import Cake from "./img/Cake.png";
 import graph from "./img/graph.png";
+import pie from "./img/pie.png";
 import TradeModal from "./TradeModal";
 
 const kak = {
@@ -61,50 +62,79 @@ function Fund() {
         <Heading level={2}>Fund Description</Heading>
         High Growth cryptocurrencies with good fundamental selected from Top 100
         cyptocurrencies by market cap
-        <Heading level={2}>Asset Allocation</Heading>
-        <DataTable
-          columns={[
-            {
-              property: "asset",
-              header: <Text>Asset</Text>,
-              render: (data) => {
-                return (
-                  <div style={{ display: "flex", alignItems: "Cente" }}>
-                    {data.asset}
-                    <img
-                      style={{ marginLeft: "5px" }}
-                      src={kak[data.asset]}
-                      width={20}
-                      height={20}
-                    />
-                  </div>
-                );
-              },
-            },
-            {
-              property: "allocation",
-              header: <Text>Allocation</Text>,
-              render: (value) => {
-                return <div>{value.allocation} %</div>;
-              },
-            },
-          ]}
-          data={[
-            {
-              asset: "Bitcoin",
-
-              allocation: 60.4,
-            },
-            {
-              asset: "Ethereum",
-              allocation: 19.6,
-            },
-            {
-              asset: "Cake",
-              allocation: 10.0,
-            },
-          ]}
-        />
+        <div
+          style={{
+            display: "flex",
+            marginTop: "50px",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "flex-start",
+              flexDirection: "column",
+            }}
+          >
+            <Heading level={2}>Asset Allocation</Heading>
+            <DataTable
+              columns={[
+                {
+                  property: "asset",
+                  header: <Text>Asset</Text>,
+                  render: (data) => {
+                    return (
+                      <div style={{ display: "flex", alignItems: "Cente" }}>
+                        {data.asset}
+                        <img
+                          style={{ marginLeft: "5px" }}
+                          src={kak[data.asset]}
+                          width={20}
+                          height={20}
+                        />
+                      </div>
+                    );
+                  },
+                },
+                {
+                  property: "d",
+                  header: <Text></Text>,
+                },
+                {
+                  property: "d",
+                  header: <Text></Text>,
+                },
+                {
+                  property: "allocation",
+                  header: <Text>Allocation</Text>,
+                  render: (value) => {
+                    return <div>{value.allocation} %</div>;
+                  },
+                },
+              ]}
+              data={[
+                {
+                  asset: "Bitcoin",
+                  allocation: 60.4,
+                },
+                {
+                  asset: "Ethereum",
+                  allocation: 19.6,
+                },
+                {
+                  asset: "Cake",
+                  allocation: 10.0,
+                },
+              ]}
+            />
+          </div>
+          <Image
+            src={pie}
+            width={275}
+            height={200}
+            style={{ marginTop: "20px" }}
+          />
+        </div>
       </Body>
       {show && (
         <TradeModal
