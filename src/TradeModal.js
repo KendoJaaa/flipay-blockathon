@@ -155,15 +155,15 @@ function BuyButton(props) {
     // const wbnb = contractUtil.getWBNBContractWithSigner(library, 'WBNB')
     // wbnb.approve(contractUtil.contractAddresses.PIKA,'0x100000000000000000000')
     // const tx = await bep20WithSigner.approve(addressSpender, minAllowance)
-    // await contractUtil.tryApproveBep20Token(library, 'WBNB', contractUtil.contractAddresses.FUNDTOKEN)
+    await contractUtil.tryApproveBep20Token(library, 'WBNB', contractUtil.contractAddresses.FUNDTOKEN)
     // await contractUtil.tryApproveBep20Token(library, 'WBNB', contractUtil.contractAddresses.CAKE)
 
-    const wbnb = contractUtil.getWBNBContractWithSigner(library, 'WBNB')
-    const minAllowance = '20000000000000000000';
+    // const wbnb = contractUtil.getWBNBContractWithSigner(library, 'WBNB')
+    // const minAllowance = '20000000000000000000';
     // const allowance = await bep20WithSigner.allowance(contractAddress, addressSpender)
 
-    const tx = await wbnb.approve(contractUtil.contractAddresses.FUNDTOKEN, minAllowance)
-    await library.waitForTransaction(tx.hash)
+    // const tx = await wbnb.approve(contractUtil.contractAddresses.FUNDTOKEN, minAllowance)
+    // await library.waitForTransaction(tx.hash)
 
     // const tx2 = await wbnb.approve(contractUtil.contractAddresses.CAKE, minAllowance)
     // await library.waitForTransaction(tx2.hash)
