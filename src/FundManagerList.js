@@ -82,7 +82,7 @@ function FundManagerList() {
           <FormField label="Fund Description">
             <TextInput />
           </FormField>
-          <FormField label="Fund Limit">
+          <FormField label="Fund Limit (USD)">
             <TextInput />
           </FormField>
           <Box direction="row" gap="medium">
