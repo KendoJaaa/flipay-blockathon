@@ -78,7 +78,7 @@ function TradeModal({
         <FormField
           name="name"
           htmlFor="text-input-give"
-          label={giveAsset || "BUSD Amount"}
+          label={giveAsset || "WBNB Amount"}
         >
           <TextInput
             id="text-input-give"
@@ -123,7 +123,7 @@ function TradeModal({
   );
 }
 
-const takeTokenPrice = 12.8
+const takeTokenPrice = 3
 function calculateTakeValue(giveValue) {
   if (giveValue === '') {
     return ''
@@ -136,7 +136,7 @@ function calculateEstTakeValueUsd(giveValue) {
   if (giveValue === '') {
     return ''
   }
-  return `(~${formatUsd(giveValue)})`
+  return `(~${formatUsd(giveValue * 261.18)})`
 }
 
 function formatUsd(usdAmount) {
@@ -156,12 +156,32 @@ function BuyButton(props) {
     // wbnb.approve(contractUtil.contractAddresses.PIKA,'0x100000000000000000000')
     // const tx = await bep20WithSigner.approve(addressSpender, minAllowance)
     await contractUtil.tryApproveBep20Token(library, 'WBNB', contractUtil.contractAddresses.FUNDTOKEN)
+    // await contractUtil.tryApproveBep20Token(library, 'WBNB', contractUtil.contractAddresses.CAKE)
+
+    // const wbnb = contractUtil.getWBNBContractWithSigner(library, 'WBNB')
+    // const minAllowance = '20000000000000000000';
+    // const allowance = await bep20WithSigner.allowance(contractAddress, addressSpender)
+
+    // const tx = await wbnb.approve(contractUtil.contractAddresses.FUNDTOKEN, minAllowance)
+    // await library.waitForTransaction(tx.hash)
+
+    // const tx2 = await wbnb.approve(contractUtil.contractAddresses.CAKE, minAllowance)
+    // await library.waitForTransaction(tx2.hash)
 
     const contract = contractUtil.getFundTokenContractWithSigner(library)
-    const tx = await contract.depositAsset(contractUtil.contractAddresses.WBNB, 10000000000)
-    console.log(tx)
-    await library.waitForTransaction(tx.hash)
+    const depositTx = await contract.depositAsset(contractUtil.contractAddresses.WBNB, '10000000000000000000')
+    console.log(depositTx)
+    await library.waitForTransaction(depositTx.hash)
     setSubmitted(true)
+
+    // const contract = contractUtil.getFundTokenContractWithSigner(library)
+    // const tx = await contract.swapAsset(
+    //   contractUtil.contractAddresses.WBNB,
+    //   contractUtil.contractAddresses.BUSD,
+    //   '1000000000000000000', { gasLimit: '1000000' })
+    // console.log(tx)
+    // await library.waitForTransaction(tx.hash)
+    // setSubmitted(true)
   }
   return (<span>
     <Button type="submit" primary label="Submit" onClick={buy} />

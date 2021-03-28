@@ -3,11 +3,13 @@ import { ethers } from 'ethers'
 const contractAddresses = {
   // PIKA: '0x1C76e0FC510c33c2804f4362fa9197AEeADc9fF2', // testnet
   // PIKA: '0x39F5839d4E20d252f90d20FB7f8228372a26601c', // local
-  FUNDTOKEN: '0xF6E8fef041b45cFC625EE6fE92409cB7Ae94bE98', // local 2
+  FUNDTOKEN: '0xD68439519E66Ef616c2Ca67AB700E52d06EE9e33', // local 2
 
   WBTC: '0x6F065a63600f6c7A9eF121993B0151b89EFA795E',
   WETH: '0x2170Ed0880ac9A755fd29B2688956BD959F933F8',
   WBNB: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
+  BUSD: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
+  CAKE: '0x05fF2B0DB69458A0750badebc4f9e13aDd608C7F',
 }
 
 const contractAbis = {
@@ -49,7 +51,7 @@ export async function tryApproveBep20Token(library, symbol, addressSpender) {
   const bep20Contract = new ethers.Contract(contractAddress, bep20Abi, library);
   const bep20WithSigner = bep20Contract.connect(library.getSigner());
 
-  const minAllowance = '0x100000000000000000000';
+  const minAllowance = '20000000000000000000000';
   const allowance = await bep20WithSigner.allowance(contractAddress, addressSpender)
 
   if (allowance.lt(minAllowance)) {
