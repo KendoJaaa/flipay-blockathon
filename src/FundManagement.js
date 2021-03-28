@@ -5,12 +5,12 @@ import TradeModal from "./TradeModal";
 import Bitcoin from "./img/Bitcoin.png";
 import Ethereum from "./img/Ethereum.png";
 import Cake from "./img/Cake.png";
-import BUSD from "./img/BUSD.png";
+import WBNB from "./img/WBNB.png";
 const kak = {
   Bitcoin: Bitcoin,
   Ethereum: Ethereum,
   Cake: Cake,
-  BUSD: BUSD,
+  WBNB: WBNB,
 };
 
 const Row = styled.div`
@@ -83,7 +83,7 @@ function FundManagement() {
           { name: "Bitcoin", amount: "10.2342 BTC", percent: 43 },
           { name: "Ethereum", amount: "200.33 ETC", percent: 23 },
           { name: "Cake", amount: "2000.1 CAKE", percent: 13 },
-          { name: "BUSD", amount: "1000 BUSD", percent: 11 },
+          { name: "WBNB", amount: "1000 WBNB", percent: 11 },
         ]}
       />
       {show && (
