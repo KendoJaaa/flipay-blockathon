@@ -32,22 +32,19 @@ const AppBar = (props) => (
 function App() {
   const [isInvestor, setIsInvestor] = useState(true);
 
-  const onClickChangeRole = () => {
-    if (isInvestor) {
-      window.location.href = "localhost:3000/fund-manager";
-    } else {
-      window.location.href = "localhost:3000";
-    }
-    setIsInvestor(!isInvestor);
-  };
-
   return (
     <Grommet plain>
       <Web3ReactProvider getLibrary={getLibrary}>
         <AppBar>
           <Button href="/" label="Pika Finance" />
           <p>
-            <Button secondary onClick={onClickChangeRole}>
+            <Button secondary>
+              <a href="compound" style={{ color: "white" }}>
+                Compound
+              </a>
+            </Button>{" "}
+            |{" "}
+            <Button secondary>
               <a href="fund-manager-list" style={{ color: "white" }}>
                 Fund Manager
               </a>
