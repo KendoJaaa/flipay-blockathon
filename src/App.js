@@ -10,6 +10,7 @@ import FundManager from "./FundManagement";
 import FundManagerList from "./FundManagerList";
 import Compound from "./Compound";
 import WalletConnect from "./walletConnect";
+import Util from './Util'
 
 import { Web3ReactProvider } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
@@ -30,14 +31,24 @@ const AppBar = (props) => (
 
 function App() {
   const [isInvestor, setIsInvestor] = useState(true);
+
+  const onClickChangeRole = () => {
+    if (isInvestor) {
+      window.location.href = "localhost:3000/fund-manager";
+    } else {
+      window.location.href = "localhost:3000";
+    }
+    setIsInvestor(!isInvestor);
+  };
+
   return (
     <Grommet plain>
       <Web3ReactProvider getLibrary={getLibrary}>
         <AppBar>
           <Button href="/" label="Pika Finance" />
           <p>
-            <Button secondary>
-              <a href="fund-manager-list">Fund Manager</a>
+            <Button secondary onClick={onClickChangeRole}>
+              <a href="fund-manager">Fund Manager</a>
             </Button>{" "}
             | <WalletConnect />
           </p>
@@ -48,6 +59,7 @@ function App() {
           <FundManager path="fund-manager" />
           <FundManagerList path="fund-manager-list" />
           <Compound path="compound" />
+          <Util path="util" />
         </Router>
       </Web3ReactProvider>
     </Grommet>

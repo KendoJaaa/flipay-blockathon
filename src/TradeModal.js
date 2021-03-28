@@ -14,6 +14,7 @@ import { Down, StatusGood } from "grommet-icons";
 
 import { useWeb3React } from '@web3-react/core'
 import { ethers } from 'ethers'
+import contractUtil from './contractUtil'
 
 const Row = styled.div`
   display: flex;
@@ -107,7 +108,7 @@ function TradeModal({
         </FormField>
         <Box direction="row" gap="large" margin="large">
           <BuyButton setSubmitted={setSubmitted} />
-          <Button type="cancel" label="Cancel" onClick={onClose} />
+          <Button label="Cancel" onClick={onClose} />
         </Box>
       </div>
     );
@@ -142,71 +143,50 @@ function formatUsd(usdAmount) {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(usdAmount);
 }
 
-const contractAddresses = {
-  // PIKA: '0x1C76e0FC510c33c2804f4362fa9197AEeADc9fF2', // testnet
-  // PIKA: '0x39F5839d4E20d252f90d20FB7f8228372a26601c', // local
-  FUNDTOKEN: '0xF6E8fef041b45cFC625EE6fE92409cB7Ae94bE98', // local 2
-
-  WBTC: '0x6F065a63600f6c7A9eF121993B0151b89EFA795E',
-  WETH: '0x2170Ed0880ac9A755fd29B2688956BD959F933F8',
-  WBNB: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
-}
-
-function BuyButton() {
+function BuyButton(props) {
   const { account, library } = useWeb3React();
+  const { setSubmitted } = props
+
   if (!account || !library) {
     return <span></span>
   }
 
+  const swap = async () => {
+    const wbnb = contractUtil.getWBNBContractWithSigner(library, 'WBNB')
+    const wrapTx = await wbnb.deposit({ value: ethers.utils.parseEther('1.0') })
+    const r = await library.waitForTransaction(wrapTx.hash)
+
+    console.log(r)
+  }
+
   const buy = async () => {
-    const contract = getFundTokenContractWithSigner(library)
-    const tx = await contract.depositAsset(contractAddresses.WBNB, 100000)
+    // const wbnb = getBep20ContractWithSigner(library, 'WBNB')
+    // const wrapTx = await wbnb.deposit().send({ value: '1000000000000000000' })
+
+    // const wrapTx = await library.getSigner().sendTransaction({
+    //   to: contractAddresses.WBNB,
+    //   // value: ethers.utils.parseEther("1.0")
+    //   value: '500000000000000000',
+    // });
+    // console.log(wrapTx)
+
+    const contract = contractUtil.getFundTokenContractWithSigner(library)
+    const tx = await contract.depositAsset(contractUtil.contractAddresses.WBNB, 100000)
     console.log(tx)
+    await library.waitForTransaction(tx.hash)
+    setSubmitted(true)
 
     // await tryApproveBep20Token(library, 'PIKA', '0x2e915b2eADe327c4CcC645b5086D92412284C143')
     // const pikaAddress = '0x1C76e0FC510c33c2804f4362fa9197AEeADc9fF2'
     // const pikaAbi = require('./abi/bep20abi.json')
     // const pikaContract = new ethers.Contract(pikaAddress, pikaAbi, library);
     // const pikaWithSigner = pikaContract.connect(library.getSigner());
-
   }
-  return <Button type="submit" primary label="Submit" onClick={buy} />
-}
-
-function getFundTokenContractWithSigner(library) {
-  const contractAddress = contractAddresses['FUNDTOKEN']
-  const fundTokenAbi = require('./abi/FundToken.abi.json')
-  const fundTokenContract = new ethers.Contract(contractAddress, fundTokenAbi, library);
-  const fundTokenWithSigner = fundTokenContract.connect(library.getSigner());
-
-  return fundTokenWithSigner
-}
-
-function getBep20ContractWithSigner(library, symbol) {
-  const contractAddress = contractAddresses[symbol]
-  const bep20Abi = require('./abi/bep20abi.json')
-  const bep20Contract = new ethers.Contract(contractAddress, bep20Abi, library);
-  const bep20WithSigner = bep20Contract.connect(library.getSigner());
-
-  return bep20WithSigner
-}
-
-async function tryApproveBep20Token(library, symbol, addressSpender) {
-  const contractAddress = contractAddresses[symbol]
-  const bep20Abi = require('./abi/bep20abi.json')
-  const bep20Contract = new ethers.Contract(contractAddress, bep20Abi, library);
-  const bep20WithSigner = bep20Contract.connect(library.getSigner());
-
-  const minAllowance = '0x100000000000000000000';
-  const allowance = await bep20WithSigner.allowance(contractAddress, addressSpender)
-
-  if (allowance.lt(minAllowance)) {
-    console.log('allowance not enough, getting approval')
-    const tx = await bep20WithSigner.approve(addressSpender, minAllowance)
-    console.log('approve: ', tx)
-  } else {
-    console.log('allowance enough, skipped approval')
-  }
+  return (<span>
+    <Button type="submit" primary label="Swap" onClick={swap} />
+    <Button type="submit" primary label="Submit" onClick={buy} />
+  </span>
+  )
 }
 
 export default TradeModal;
