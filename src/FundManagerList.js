@@ -66,12 +66,18 @@ function FundManagerList() {
           onClickOutside={() => setShow(false)}
           style={{ padding: "20px" }}
         >
-          <FormField name="name" htmlFor="text-input-id" label="Fund Name">
+          <FormField name="name" label="Fund Name">
             <TextInput
               id="text-input-id"
               name="name"
               onChange={(e) => setValue(e.target.value)}
             />
+          </FormField>
+          <FormField label="Fund Description">
+            <TextInput />
+          </FormField>
+          <FormField label="Fund Limit">
+            <TextInput />
           </FormField>
           <Box direction="row" gap="medium">
             <Button
