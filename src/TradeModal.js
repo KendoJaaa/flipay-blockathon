@@ -78,7 +78,7 @@ function TradeModal({
         <FormField
           name="name"
           htmlFor="text-input-give"
-          label={giveAsset || "BUSD Amount"}
+          label={giveAsset || "WBNB Amount"}
         >
           <TextInput
             id="text-input-give"
@@ -123,7 +123,7 @@ function TradeModal({
   );
 }
 
-const takeTokenPrice = 12.8
+const takeTokenPrice = 3
 function calculateTakeValue(giveValue) {
   if (giveValue === '') {
     return ''
@@ -136,7 +136,7 @@ function calculateEstTakeValueUsd(giveValue) {
   if (giveValue === '') {
     return ''
   }
-  return `(~${formatUsd(giveValue)})`
+  return `(~${formatUsd(giveValue * 261.18)})`
 }
 
 function formatUsd(usdAmount) {
